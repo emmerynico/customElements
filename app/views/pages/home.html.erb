@@ -1,2 +1,167 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Custom Elements</h1>
+
+<div class="footer-container">
+  <div class="box"><h2>Social media footer</h2>
+
+  <section class="contact-section bg-black" id="background-color-main" style="background-color: #3c4040;">
+  <div class="social-container">
+  <div class="container">
+    <div class="social d-flex justify-content-center" id="social">
+        <a class="social-link" href="https://www.instagram.com/unloqd"><i class="fab fa-instagram"></i></a>
+        <a class="social-link" id="facebook-link" href="https://www.facebook.com/Unloqd.be" target="_blank"> <i class="fab fa-facebook-f"></i></a>
+        <a class="social-link" href="https://www.linkedin.com/in/mailysrenson/"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+  </div>
+  <footer class="footer small text-center text-white-50" id="footer-unloqd">
+    <div id="unloqd-made" class="container">Made with the help of <a href="www.unloqd.be">Unloqd</a></div>
+  </footer>
+  </section>
+
+  <div class="setting-card">
+    <h3>Setting</h3>
+    <ul id="ul-list">
+      <li class="setting-element">
+        <p>Couleur de fond</p>
+        <p><input type="color" id="colorpicker-bg" onchange="clickColor(0, -1, -1, 5)" value="#3c4040" style="width:85%;"></p>
+      </li>
+      <li class="setting-element">
+        <p>Couleur BG icones</p>
+        <p><input type="color" id="colorpicker-icon-bg" onchange="colorIconBg(0, -1, -1, 5)" value="#3c4040" style="width:85%;"></p>
+      </li>
+      <li class="setting-element">
+        <p>Couleur icones</p>
+        <p><input type="color" id="colorpicker-icon" onchange="colorIcon(0, -1, -1, 5)" value="#3c4040" style="width:85%;"></p>
+      </li>
+      <li class="setting-element"> <p>Facebook</p><input type="checkbox" id="facebook-checkbox" class="switchSocial" checked="checked"> <span class="checkmark"></span></li>
+      <li class="setting-element"> <p>Instagram</p><input type="checkbox" id="instagram-checkbox" class="switchSocial" checked="checked"> <span class="checkmark"></span></li>
+      <li class="setting-element"> <p>Youtube</p><input type="checkbox" id="youtube-checkbox" class="switchSocial"> <span class="checkmark"></span></li>
+      <li class="setting-element"> <p>Linkedin</p><input type="checkbox" id="linkedin-checkbox" class="switchSocial" checked="checked"> <span class="checkmark"></span></li>
+      <li class="setting-element"> <p>Made with Unloqd</p> <input type="checkbox" id="unloqd-checkbox" checked="checked"> <span class="checkmark"></span></li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div>
+    <input type="text" id="text-to-copy" placeholder="Enter text" />
+    <button id="copy-text">Copy</button>
+    <span id="copied-text" style="display: none;">Copied!</span>
+</div>
+
+<div id="test">coucou</div>
+
+<script>
+
+  ulList = document.getElementById("ul-list")
+
+
+ // ------------ Bg Color ------------
+  mainBgColor = document.getElementById("background-color-main")
+  colorPicker = document.getElementById("colorpicker-bg")
+  function clickColor() {
+  mainBgColor.style.backgroundColor = colorPicker.value ;
+  }
+
+
+ // ------------ Social Icon ------------
+  socialAll = document.querySelector(".social-container");
+  facebookLink = document.getElementById("facebook-link")
+  facebookCheckbox = document.getElementById("facebook-checkbox");
+  instagramCheckbox = document.getElementById("instagram-checkbox");
+  linkedinCheckbox = document.getElementById("linkedin-checkbox");
+  youtubeCheckbox = document.getElementById("youtube-checkbox");
+
+  document.querySelectorAll('.switchSocial').forEach(item => {
+  item.addEventListener('click', event => {
+     let node = document.createElement("div");
+     node.classList.add("social");
+     node.classList.add("d-flex");
+     node.classList.add("justify-content-center");
+     node.setAttribute("id", "social");
+     allText = ''
+     if ( facebookCheckbox.checked == true ) {
+      facebookText = `<a class="social-link" id="facebook-link" href="https://www.facebook.com/Unloqd.be" target="_blank"> <i class="fab fa-facebook-f"></i></a>`
+      allText = allText + facebookText
+     }
+     if ( instagramCheckbox.checked == true ) {
+      instagramText = `<a class="social-link" href="https://www.instagram.com/unloqd"><i class="fab fa-instagram"></i></a>`
+      allText = allText + instagramText
+     }
+     if ( linkedinCheckbox.checked == true ) {
+      linkedinText = `<a class="social-link" href="https://www.linkedin.com/in/mailysrenson/"><i class="fab fa-linkedin-in"></i></a>`
+      allText = allText + linkedinText
+     }
+     if ( youtubeCheckbox.checked == true ) {
+      youtubeText = `<a class="social-link" href="/"><i class="fab fa-youtube"></i></a>`
+      allText = allText + youtubeText
+     }
+     node.innerHTML = allText
+     socialAll.innerHTML =''
+     socialAll.appendChild(node);
+  })
+})
+
+ // ------------ Social Icon BG Color ------------
+
+  colorIconSocialBg = document.getElementById("colorpicker-icon-bg")
+  function colorIconBg() {
+    document.querySelectorAll('.social-link').forEach(item => {
+      item.style.backgroundColor = colorIconSocialBg.value ;
+    })
+  }
+
+
+
+ // ------------ Social Icon Color ------------
+
+  colorIconSocial = document.getElementById("colorpicker-icon")
+  function colorIcon() {
+    document.querySelectorAll('.social-link').forEach(item => {
+      item.style.color = colorIconSocial.value ;
+    })
+  }
+
+
+
+
+ // ------------ Unloqd Made ------------
+  unloqdMade = document.getElementById("footer-unloqd");
+  unloqdCheckbox = document.getElementById("unloqd-checkbox");
+  unloqdText = `<div id="unloqd-made" class="container">Made with the help of <a href="www.unloqd.be">Unloqd</a></div>`
+  unloqdCheckbox.addEventListener("click", displayUnloqd);
+  function displayUnloqd() {
+  if ( unloqdCheckbox.checked == true ) {
+  unloqdMade.innerHTML = unloqdText
+  } else {
+  unloqdMade.innerHTML = ''
+  }
+  }
+
+document.getElementById('copy-text').addEventListener('click', function(e){
+  e.preventDefault();
+
+  document.getElementById('test').select();
+
+  let copied;
+
+  try
+  {
+      // Copy the text
+      console.log(copied)
+      copied = document.execCommand('copy');
+  }
+  catch (ex)
+  {
+      copied = false;
+  }
+
+  if(copied)
+  {
+    // Display the copied text message
+    document.getElementById('copied-text').style.display = 'block';
+  }
+
+});
+</script>
+
